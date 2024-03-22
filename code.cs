@@ -458,8 +458,8 @@ namespace DelegatesAndEvents
         protected IOperation Operation;
         protected delegate void RunFunction();
         protected RunFunction TargetFunction;
-        public SquareMatrix matrix1;
-        public SquareMatrix matrix2;
+        public SquareMatrix Matrix1;
+        public SquareMatrix Matrix2;
 
         public BaseHandler()
         {
@@ -468,8 +468,8 @@ namespace DelegatesAndEvents
 
         public virtual void Handle(IOperation operation, SquareMatrix matrixOne, SquareMatrix matrixTwo)
         {
-            matrix1 = matrixOne;
-            matrix2 = matrixTwo;
+            Matrix1 = matrixOne;
+            Matrix2 = matrixTwo;
 
             if (Operation.OperationType == operation.OperationType)
             {
@@ -506,11 +506,11 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица 1:");
-                Console.WriteLine(matrix1);
+                Console.WriteLine(Matrix1);
                 Console.WriteLine("Матрица 2:");
-                Console.WriteLine(matrix2);
+                Console.WriteLine(Matrix2);
                 Console.WriteLine("Сумма матриц:");
-                Console.WriteLine(matrix1 + matrix2);
+                Console.WriteLine(Matrix1 + Matrix2);
             };
         }
     }
@@ -524,11 +524,11 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица 1:");
-                Console.WriteLine(matrix1);
+                Console.WriteLine(Matrix1);
                 Console.WriteLine("Матрица 2:");
-                Console.WriteLine(matrix2);
+                Console.WriteLine(Matrix2);
                 Console.WriteLine("Произведение матриц:");
-                Console.WriteLine(matrix1 * matrix2);
+                Console.WriteLine(Matrix1 * Matrix2);
             };
         }
     }
@@ -542,10 +542,10 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица 1:");
-                Console.WriteLine(matrix1);
+                Console.WriteLine(Matrix1);
                 Console.WriteLine("Матрица 2:");
-                Console.WriteLine(matrix2);
-                Console.WriteLine("Матрицы равны: " + (matrix1 == matrix2) + "\n");
+                Console.WriteLine(Matrix2);
+                Console.WriteLine("Матрицы равны: " + (Matrix1 == Matrix2) + "\n");
             };
         }
     }
@@ -559,8 +559,8 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица:");
-                Console.WriteLine(matrix1);
-                Console.WriteLine("Определитель матрицы: " + matrix1.Determinant() + "\n");
+                Console.WriteLine(Matrix1);
+                Console.WriteLine("Определитель матрицы: " + Matrix1.Determinant() + "\n");
             };
         }
     }
@@ -574,9 +574,9 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица:");
-                Console.WriteLine(matrix1);
+                Console.WriteLine(Matrix1);
                 Console.WriteLine("Обратная матрица:");
-                Console.WriteLine(matrix1.Inverse());
+                Console.WriteLine(Matrix1.Inverse());
             };
         }
     }
@@ -590,9 +590,9 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица:");
-                Console.WriteLine(matrix1);
+                Console.WriteLine(Matrix1);
                 Console.WriteLine("Транспонированная матрица:");
-                Console.WriteLine(matrix1.Transpose());
+                Console.WriteLine(Matrix1.Transpose());
             };
         }
     }
@@ -606,8 +606,8 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица:");
-                Console.WriteLine(matrix1);
-                Console.WriteLine("След матрицы: " + matrix1.Trace() + "\n");
+                Console.WriteLine(Matrix1);
+                Console.WriteLine("След матрицы: " + Matrix1.Trace() + "\n");
             };
         }
     }
@@ -618,7 +618,7 @@ namespace DelegatesAndEvents
         {
             Operation = new Diagonal();
             Next = null;
-            DiagonalizeMatrixDelegate diagonalizematrixDelegate = delegate (SquareMatrix matrixForDiagonalize)
+            DiagonalizeMatrixDelegate diagonalizeMatrixDelegate = delegate (SquareMatrix matrixForDiagonalize)
             {
                 for (int rowIndex = 0; rowIndex < matrixForDiagonalize.Size; ++rowIndex)
                 {
@@ -636,9 +636,9 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица:");
-                Console.WriteLine(matrix1);
+                Console.WriteLine(Matrix1);
                 Console.WriteLine("Диагонализированная матрица:");
-                Console.WriteLine(diagonalizematrixDelegate(matrix1));
+                Console.WriteLine(diagonalizeMatrixDelegate(Matrix1));
             };
         }
     }
