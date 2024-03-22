@@ -132,10 +132,10 @@ namespace DelegatesAndEvents
             {
                 for (int columnIndex = 0; columnIndex < Size; ++columnIndex)
                 {
-                    int Comparison = Matrix[rowIndex, columnIndex].CompareTo(other.Matrix[rowIndex, columnIndex]);
-                    if (Comparison != 0)
+                    int comparison = Matrix[rowIndex, columnIndex].CompareTo(other.Matrix[rowIndex, columnIndex]);
+                    if (comparison != 0)
                     {
-                        return Comparison;
+                        return comparison;
                     }
                 }
             }
@@ -165,17 +165,17 @@ namespace DelegatesAndEvents
 
         public override string ToString()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder stringbuild = new StringBuilder();
             for (int rowIndex = 0; rowIndex < Size; ++rowIndex)
             {
                 for (int columnIndex = 0; columnIndex < Size; ++columnIndex)
                 {
-                    sb.Append(Matrix[rowIndex, columnIndex]);
-                    sb.Append(" ");
+                    stringbuild.Append(Matrix[rowIndex, columnIndex]);
+                    stringbuild.Append(" ");
                 }
-                sb.AppendLine();
+                stringbuild.AppendLine();
             }
-            return sb.ToString();
+            return stringbuild.ToString();
         }
 
         public static explicit operator SquareMatrix(int[,] Array) 
@@ -258,13 +258,13 @@ namespace DelegatesAndEvents
             return inverseMatrix;
         }
 
-        private void SwapRows(double[,] matrix, int Row1, int Row2)
+        private void SwapRows(double[,] matrix, int row1, int row2)
         {
             for (int elementIndex = 0; elementIndex < Size; ++elementIndex)
             {
-                double temp = Matrix[Row1, elementIndex];
-                matrix[Row1, elementIndex] = matrix[Row2, elementIndex];
-                matrix[Row2, elementIndex] = temp;
+                double temp = Matrix[row1, elementIndex];
+                matrix[row1, elementIndex] = matrix[row2, elementIndex];
+                matrix[row2, elementIndex] = temp;
             }
         }
 
