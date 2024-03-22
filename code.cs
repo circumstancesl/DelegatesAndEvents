@@ -6,47 +6,47 @@ using System.Text;
 namespace DelegatesAndEvents
 {
     // исключение для несовместимых матриц
-    public class IncompatibleMatrixException : Exception
+    public class IncompatiblematrixException : Exception
     {
-        public IncompatibleMatrixException(string message) : base(message) { }
+        public IncompatiblematrixException(string message) : base(message) { }
     }
 
     // исключение для невозможности вычисления обратной матрицы
-    public class NonInvertibleMatrixException : Exception
+    public class NonInvertiblematrixException : Exception
     {
-        public NonInvertibleMatrixException(string message) : base(message) { }
+        public NonInvertiblematrixException(string message) : base(message) { }
     }
 
     public class SquareMatrix : ICloneable, IComparable<SquareMatrix>
     {
-        public int Size;
-        public int[,] Matrix;
+        public int size;
+        public int[,] matrix;
 
-        public SquareMatrix(int Size)
+        public SquareMatrix(int size)
         {
-            this.Size = Size;
-            this.Matrix = new int[Size, Size];
+            this.size = size;
+            this.matrix = new int[size, size];
         }
 
-        public SquareMatrix(int Size, int MinValue, int MaxValue) : this(Size) 
+        public SquareMatrix(int size, int MinValue, int MaxValue) : this(size) 
         {
             Random rand = new Random();
-            for (int RowIndex = 0; RowIndex < Size; ++RowIndex)
+            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
             {
-                for (int ColumnIndex = 0; ColumnIndex < Size; ++ColumnIndex)
+                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
                 {
-                    this.Matrix[RowIndex, ColumnIndex] = rand.Next(MinValue, MaxValue);
+                    this.matrix[rowIndex, columnIndex] = rand.Next(MinValue, MaxValue);
                 }
             }
         }
 
-        public void PrintMatrix() 
+        public void Printmatrix() 
         {
-            for (int RowIndex = 0; RowIndex < Size; ++RowIndex)
+            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
             {
-                for (int ColumnIndex = 0; ColumnIndex < Size; ++ColumnIndex)
+                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
                 {
-                    Console.Write(Matrix[RowIndex, ColumnIndex] + " ");
+                    Console.Write(matrix[rowIndex, columnIndex] + " ");
                 }
                 Console.WriteLine();
             }
@@ -54,9 +54,9 @@ namespace DelegatesAndEvents
 
         public SquareMatrix(SquareMatrix other)
         {
-            Size = other.Size;
-            Matrix = new int[Size, Size];
-            Array.Copy(other.Matrix, Matrix, other.Matrix.Length);
+            size = other.size;
+            matrix = new int[size, size];
+            Array.Copy(other.matrix, matrix, other.matrix.Length);
         }
 
         public object Clone()
@@ -64,31 +64,31 @@ namespace DelegatesAndEvents
             return new SquareMatrix(this);
         }
 
-        public static SquareMatrix operator +(SquareMatrix Matrix1, SquareMatrix Matrix2) 
+        public static SquareMatrix operator +(SquareMatrix matrix1, SquareMatrix matrix2) 
         {
-            SquareMatrix result = (SquareMatrix)Matrix1.Clone();
+            SquareMatrix result = (SquareMatrix)matrix1.Clone();
 
-            for (int RowIndex = 0; RowIndex < Matrix1.Size; ++RowIndex)
+            for (int rowIndex = 0; rowIndex < matrix1.size; ++rowIndex)
             {
-                for (int ColumnIndex = 0; ColumnIndex < Matrix1.Size; ++ColumnIndex)
+                for (int columnIndex = 0; columnIndex < matrix1.size; ++columnIndex)
                 {
-                    result.Matrix[RowIndex, ColumnIndex] = Matrix1.Matrix[RowIndex, ColumnIndex] + Matrix2.Matrix[RowIndex, ColumnIndex];
+                    result.matrix[rowIndex, columnIndex] = matrix1.matrix[rowIndex, columnIndex] + matrix2.matrix[rowIndex, columnIndex];
                 }
             }
 
             return result;
         }
-        public static SquareMatrix operator *(SquareMatrix Matrix1, SquareMatrix Matrix2) 
+        public static SquareMatrix operator *(SquareMatrix matrix1, SquareMatrix matrix2) 
         {
-            SquareMatrix result = (SquareMatrix)Matrix1.Clone();
+            SquareMatrix result = (SquareMatrix)matrix1.Clone();
 
-            for (int RowIndex = 0; RowIndex < Matrix1.Size; ++RowIndex)
+            for (int rowIndex = 0; rowIndex < matrix1.size; ++rowIndex)
             {
-                for (int ColumnIndex = 0; ColumnIndex < Matrix1.Size; ++ColumnIndex)
+                for (int columnIndex = 0; columnIndex < matrix1.size; ++columnIndex)
                 {
-                    for (int ElementIndex = 0; ElementIndex < Matrix1.Size; ElementIndex++)
+                    for (int elementIndex = 0; elementIndex < matrix1.size; elementIndex++)
                     {
-                        result.Matrix[RowIndex, ColumnIndex] += Matrix1.Matrix[RowIndex, ElementIndex] * Matrix2.Matrix[ElementIndex, ColumnIndex];
+                        result.matrix[rowIndex, columnIndex] += matrix1.matrix[rowIndex, elementIndex] * matrix2.matrix[elementIndex, columnIndex];
                     }
                 }
             }
@@ -96,24 +96,24 @@ namespace DelegatesAndEvents
             return result;
         }
 
-        public static bool operator ==(SquareMatrix Matrix1, SquareMatrix Matrix2)
+        public static bool operator ==(SquareMatrix matrix1, SquareMatrix matrix2)
         {
-            if (ReferenceEquals(Matrix1, Matrix2))
+            if (ReferenceEquals(matrix1, matrix2))
             {
                 return true;
             }
 
-            if ((object)Matrix1 == null || (object)Matrix2 == null)
+            if ((object)matrix1 == null || (object)matrix2 == null)
             {
                 return false;
             }
 
-            return Matrix1.Equals(Matrix2);
+            return matrix1.Equals(matrix2);
         }
 
-        public static bool operator !=(SquareMatrix Matrix1, SquareMatrix Matrix2)
+        public static bool operator !=(SquareMatrix matrix1, SquareMatrix matrix2)
         {
-            return !(Matrix1 == Matrix2);
+            return !(matrix1 == matrix2);
         }
 
         public int CompareTo(SquareMatrix other)
@@ -123,16 +123,16 @@ namespace DelegatesAndEvents
                 return 1;
             }
 
-            if (Size != other.Size)
+            if (size != other.size)
             {
-                return Size.CompareTo(other.Size);
+                return size.CompareTo(other.size);
             }
 
-            for (int RowIndex = 0; RowIndex < Size; ++RowIndex)
+            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
             {
-                for (int ColumnIndex = 0; ColumnIndex < Size; ++ColumnIndex)
+                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
                 {
-                    int Comparison = Matrix[RowIndex, ColumnIndex].CompareTo(other.Matrix[RowIndex, ColumnIndex]);
+                    int Comparison = matrix[rowIndex, columnIndex].CompareTo(other.matrix[rowIndex, columnIndex]);
                     if (Comparison != 0)
                     {
                         return Comparison;
@@ -143,34 +143,34 @@ namespace DelegatesAndEvents
             return 0;
         }
 
-        public static bool operator <(SquareMatrix Matrix1, SquareMatrix Matrix2)
+        public static bool operator <(SquareMatrix matrix1, SquareMatrix matrix2)
         {
-            return Matrix1.CompareTo(Matrix2) < 0;
+            return matrix1.CompareTo(matrix2) < 0;
         }
 
-        public static bool operator >(SquareMatrix Matrix1, SquareMatrix Matrix2)
+        public static bool operator >(SquareMatrix matrix1, SquareMatrix matrix2)
         {
-            return Matrix1.CompareTo(Matrix2) > 0;
+            return matrix1.CompareTo(matrix2) > 0;
         }
 
-        public static bool operator <=(SquareMatrix Matrix1, SquareMatrix Matrix2)
+        public static bool operator <=(SquareMatrix matrix1, SquareMatrix matrix2)
         {
-            return Matrix1.CompareTo(Matrix2) <= 0;
+            return matrix1.CompareTo(matrix2) <= 0;
         }
 
-        public static bool operator >=(SquareMatrix Matrix1, SquareMatrix Matrix2)
+        public static bool operator >=(SquareMatrix matrix1, SquareMatrix matrix2)
         {
-            return Matrix1.CompareTo(Matrix2) >= 0;
+            return matrix1.CompareTo(matrix2) >= 0;
         }
 
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            for (int RowIndex = 0; RowIndex < Size; ++RowIndex)
+            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
             {
-                for (int ColumnIndex = 0; ColumnIndex < Size; ++ColumnIndex)
+                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
                 {
-                    sb.Append(Matrix[RowIndex, ColumnIndex]);
+                    sb.Append(matrix[rowIndex, columnIndex]);
                     sb.Append(" ");
                 }
                 sb.AppendLine();
@@ -182,136 +182,136 @@ namespace DelegatesAndEvents
         {
             int size = Array.GetLength(0);
             SquareMatrix Result = new SquareMatrix(size);
-            Result.Matrix = Array;
+            Result.matrix = Array;
             return Result;
         }
 
         public SquareMatrix Inverse()
         {
-            double[,] AugmentedMatrix = new double[Size, 2 * Size];
-            SquareMatrix InverseMatrix = new SquareMatrix(Size);
+            double[,] augmentedmatrix = new double[size, 2 * size];
+            SquareMatrix inversematrix = new SquareMatrix(size);
 
-            for (int RowIndex = 0; RowIndex < Size; ++RowIndex)
+            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
             {
-                for (int ColumnIndex = 0; ColumnIndex < Size; ++ColumnIndex)
+                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
                 {
-                    AugmentedMatrix[RowIndex, ColumnIndex] = Matrix[RowIndex, ColumnIndex];
+                    augmentedmatrix[rowIndex, columnIndex] = matrix[rowIndex, columnIndex];
                 }
-                AugmentedMatrix[RowIndex, RowIndex + Size] = 1; 
+                augmentedmatrix[rowIndex, rowIndex + size] = 1; 
             }
 
-            for (int RowIndex = 0; RowIndex < Size; ++RowIndex)
+            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
             {
-                if (AugmentedMatrix[RowIndex, RowIndex] == 0)
+                if (augmentedmatrix[rowIndex, rowIndex] == 0)
                 {
-                    for (int ColumnIndex = RowIndex + 1; ColumnIndex < Size; ++ColumnIndex)
+                    for (int columnIndex = rowIndex + 1; columnIndex < size; ++columnIndex)
                     {
-                        if (AugmentedMatrix[ColumnIndex, RowIndex] != 0)
+                        if (augmentedmatrix[columnIndex, rowIndex] != 0)
                         {
-                            SwapRows(AugmentedMatrix, RowIndex, ColumnIndex);
+                            SwapRows(augmentedmatrix, rowIndex, columnIndex);
                             break;
                         }
                     }
                 }
 
-                if (AugmentedMatrix[RowIndex, RowIndex] == 0)
+                if (augmentedmatrix[rowIndex, rowIndex] == 0)
                 {
-                    throw new NonInvertibleMatrixException("Матрица необратима.");
+                    throw new NonInvertiblematrixException("Матрица необратима.");
                 }
 
-                double Factor = AugmentedMatrix[RowIndex, RowIndex];
-                for (int ColumnIndex = RowIndex; ColumnIndex < 2 * Size; ++ColumnIndex)
+                double factor = augmentedmatrix[rowIndex, rowIndex];
+                for (int columnIndex = rowIndex; columnIndex < 2 * size; ++columnIndex)
                 {
-                    AugmentedMatrix[RowIndex, ColumnIndex] /= Factor;
+                    augmentedmatrix[rowIndex, columnIndex] /= factor;
                 }
 
-                for (int ColumnIndex = RowIndex + 1; ColumnIndex < Size; ++ColumnIndex)
+                for (int columnIndex = rowIndex + 1; columnIndex < size; ++columnIndex)
                 {
-                    double Factor2 = AugmentedMatrix[ColumnIndex, RowIndex];
-                    for (int ElementIndex = RowIndex; ElementIndex < 2 * Size; ++ElementIndex)
+                    double factor2 = augmentedmatrix[columnIndex, rowIndex];
+                    for (int elementIndex = rowIndex; elementIndex < 2 * size; ++elementIndex)
                     {
-                        AugmentedMatrix[ColumnIndex, ElementIndex] -= Factor2 * AugmentedMatrix[RowIndex, ElementIndex];
+                        augmentedmatrix[columnIndex, elementIndex] -= factor2 * augmentedmatrix[rowIndex, elementIndex];
                     }
                 }
             }
 
-            for (int RowIndex = Size - 1; RowIndex >= 0; --RowIndex)
+            for (int rowIndex = size - 1; rowIndex >= 0; --rowIndex)
             {
-                for (int ColumnIndex = RowIndex - 1; ColumnIndex >= 0; --ColumnIndex)
+                for (int columnIndex = rowIndex - 1; columnIndex >= 0; --columnIndex)
                 {
-                    double Factor3 = AugmentedMatrix[ColumnIndex, RowIndex];
-                    for (int ElementIndex = 0; ElementIndex < 2 * Size; ++ElementIndex)
+                    double factor3 = augmentedmatrix[columnIndex, rowIndex];
+                    for (int elementIndex = 0; elementIndex < 2 * size; ++elementIndex)
                     {
-                        AugmentedMatrix[ColumnIndex, ElementIndex] -= Factor3 * AugmentedMatrix[RowIndex, ElementIndex];
+                        augmentedmatrix[columnIndex, elementIndex] -= factor3 * augmentedmatrix[rowIndex, elementIndex];
                     }
                 }
             }
 
-            for (int RowIndex = 0; RowIndex < Size; ++RowIndex)
+            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
             {
-                for (int ColumnIndex = 0; ColumnIndex < Size; ++ColumnIndex)
+                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
                 {
-                    InverseMatrix.Matrix[RowIndex, ColumnIndex] = (int)AugmentedMatrix[RowIndex, ColumnIndex + Size];
+                    inversematrix.matrix[rowIndex, columnIndex] = (int)augmentedmatrix[rowIndex, columnIndex + size];
                 }
             }
 
-            return InverseMatrix;
+            return inversematrix;
         }
 
-        private void SwapRows(double[,] Matrix, int Row1, int Row2)
+        private void SwapRows(double[,] matrix, int Row1, int Row2)
         {
-            for (int ElementIndex = 0; ElementIndex < Size; ++ElementIndex)
+            for (int elementIndex = 0; elementIndex < size; ++elementIndex)
             {
-                double Temp = Matrix[Row1, ElementIndex];
-                Matrix[Row1, ElementIndex] = Matrix[Row2, ElementIndex];
-                Matrix[Row2, ElementIndex] = Temp;
+                double Temp = matrix[Row1, elementIndex];
+                matrix[Row1, elementIndex] = matrix[Row2, elementIndex];
+                matrix[Row2, elementIndex] = Temp;
             }
         }
 
         public int Determinant()
         {
-            return CalculateDeterminant(Matrix, Size);
+            return CalculateDeterminant(matrix, size);
         }
 
-        private static int CalculateDeterminant(int[,] Matrix, int Size)
+        private static int CalculateDeterminant(int[,] matrix, int size)
         {
-            if (Size == 1)
+            if (size == 1)
             {
-                return Matrix[0, 0];
+                return matrix[0, 0];
             }
 
-            int Determinant = 0;
-            int Sign = 1;
+            int determinant = 0;
+            int sign = 1;
 
-            for (int RowIndex = 0; RowIndex < Size; ++RowIndex)
+            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
             {
-                int[,] SubMatrix = new int[Size - 1, Size - 1];
-                for (int ColumnIndex = 1; ColumnIndex < Size; ++ColumnIndex)
+                int[,] Submatrix = new int[size - 1, size - 1];
+                for (int columnIndex = 1; columnIndex < size; ++columnIndex)
                 {
-                    int columnIndex = 0;
-                    for (int ElementIndex = 0; ElementIndex < Size; ++ElementIndex)
+                    int columnIndexMatrix = 0;
+                    for (int elementIndex = 0; elementIndex < size; ++elementIndex)
                     {
-                        if (ElementIndex == RowIndex) continue;
-                        SubMatrix[ColumnIndex - 1, columnIndex] = Matrix[ColumnIndex, ElementIndex];
-                        columnIndex++;
+                        if (elementIndex == rowIndex) continue;
+                        Submatrix[columnIndex - 1, columnIndexMatrix] = matrix[columnIndex, elementIndex];
+                        ++columnIndexMatrix;
                     }
                 }
 
-                Determinant += Sign * Matrix[0, RowIndex] * CalculateDeterminant(SubMatrix, Size - 1);
-                Sign = -Sign;
+                determinant += sign * matrix[0, rowIndex] * CalculateDeterminant(Submatrix, size - 1);
+                sign = -sign;
             }
 
-            return Determinant;
+            return determinant;
         }
 
-        public static bool operator true(SquareMatrix Matrix)
+        public static bool operator true(SquareMatrix matrix)
         {
-            return !Matrix.Equals(Matrix);
+            return !matrix.Equals(matrix);
         }
 
-        public static bool operator false(SquareMatrix Matrix)
+        public static bool operator false(SquareMatrix matrix)
         {
-            return Matrix.Equals(Matrix);
+            return matrix.Equals(matrix);
         }
 
         public override bool Equals(object Obj)
@@ -323,11 +323,11 @@ namespace DelegatesAndEvents
 
             SquareMatrix other = (SquareMatrix)Obj;
 
-            for (int RowIndex = 0; RowIndex < Size; ++RowIndex)
+            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
             {
-                for (int ColumnIndex = 0; ColumnIndex < Size; ++ColumnIndex)
+                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
                 {
-                    if (Matrix[RowIndex, ColumnIndex] != other.Matrix[RowIndex, ColumnIndex])
+                    if (matrix[rowIndex, columnIndex] != other.matrix[rowIndex, columnIndex])
                     {
                         return false;
                     }
@@ -339,49 +339,49 @@ namespace DelegatesAndEvents
 
         public override int GetHashCode()
         {
-            int Hash = 17; 
-            for (int RowIndex = 0; RowIndex < Size; ++RowIndex)
+            int hash = 17; 
+            for (int rowIndex = 0; rowIndex < size; ++rowIndex)
             {
-                for (int ColumnIndex = 0; ColumnIndex < Size; ++ColumnIndex)
+                for (int columnIndex = 0; columnIndex < size; ++columnIndex)
                 {
-                    Hash = Hash * 31 + Matrix[RowIndex, ColumnIndex]; 
+                    hash = hash * 31 + matrix[rowIndex, columnIndex]; 
                 }
             }
-            return Hash;
+            return hash;
         }
     }
 
     public static class ExtendingMetods
     {
-        public static SquareMatrix Transpose(this SquareMatrix MatrixForTransposition)
+        public static SquareMatrix Transpose(this SquareMatrix matrixForTransposition)
         {
-            SquareMatrix Result = new SquareMatrix(MatrixForTransposition.Size);
+            SquareMatrix Result = new SquareMatrix(matrixForTransposition.size);
 
-            for (int RowIndex = 0; RowIndex < MatrixForTransposition.Size; ++RowIndex)
+            for (int rowIndex = 0; rowIndex < matrixForTransposition.size; ++rowIndex)
             {
-                for (int ColumnIndex = 0; ColumnIndex < MatrixForTransposition.Size; ++ColumnIndex)
+                for (int columnIndex = 0; columnIndex < matrixForTransposition.size; ++columnIndex)
                 {
-                    Result.Matrix[RowIndex, ColumnIndex] = MatrixForTransposition.Matrix[ColumnIndex, RowIndex];
+                    Result.matrix[rowIndex, columnIndex] = matrixForTransposition.matrix[columnIndex, rowIndex];
                 }
             }
 
             return Result;
         }
 
-        public static int Trace(this SquareMatrix TraceMatrix)
+        public static int Trace(this SquareMatrix Tracematrix)
         {
             int trace = 0;
 
-            for (int RowIndex = 0; RowIndex < TraceMatrix.Size; ++RowIndex)
+            for (int rowIndex = 0; rowIndex < Tracematrix.size; ++rowIndex)
             {
-                trace += TraceMatrix.Matrix[RowIndex, RowIndex];
+                trace += Tracematrix.matrix[rowIndex, rowIndex];
             }
 
             return trace;
         }
     }
 
-    public delegate SquareMatrix DiagonalizeMatrixDelegate(SquareMatrix matrix);
+    public delegate SquareMatrix DiagonalizematrixDelegate(SquareMatrix matrix);
 
     public abstract class IOperation
     {
@@ -458,8 +458,8 @@ namespace DelegatesAndEvents
         protected IOperation Operation;
         protected delegate void RunFunction();
         protected RunFunction TargetFunction;
-        public SquareMatrix Matrix1;
-        public SquareMatrix Matrix2;
+        public SquareMatrix matrix1;
+        public SquareMatrix matrix2;
 
         public BaseHandler()
         {
@@ -468,8 +468,8 @@ namespace DelegatesAndEvents
 
         public virtual void Handle(IOperation operation, SquareMatrix matrixOne, SquareMatrix matrixTwo)
         {
-            Matrix1 = matrixOne;
-            Matrix2 = matrixTwo;
+            matrix1 = matrixOne;
+            matrix2 = matrixTwo;
 
             if (Operation.OperationType == operation.OperationType)
             {
@@ -506,11 +506,11 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица 1:");
-                Console.WriteLine(Matrix1);
+                Console.WriteLine(matrix1);
                 Console.WriteLine("Матрица 2:");
-                Console.WriteLine(Matrix2);
+                Console.WriteLine(matrix2);
                 Console.WriteLine("Сумма матриц:");
-                Console.WriteLine(Matrix1 + Matrix2);
+                Console.WriteLine(matrix1 + matrix2);
             };
         }
     }
@@ -524,11 +524,11 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица 1:");
-                Console.WriteLine(Matrix1);
+                Console.WriteLine(matrix1);
                 Console.WriteLine("Матрица 2:");
-                Console.WriteLine(Matrix2);
+                Console.WriteLine(matrix2);
                 Console.WriteLine("Произведение матриц:");
-                Console.WriteLine(Matrix1 * Matrix2);
+                Console.WriteLine(matrix1 * matrix2);
             };
         }
     }
@@ -542,10 +542,10 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица 1:");
-                Console.WriteLine(Matrix1);
+                Console.WriteLine(matrix1);
                 Console.WriteLine("Матрица 2:");
-                Console.WriteLine(Matrix2);
-                Console.WriteLine("Матрицы равны: " + (Matrix1 == Matrix2) + "\n");
+                Console.WriteLine(matrix2);
+                Console.WriteLine("Матрицы равны: " + (matrix1 == matrix2) + "\n");
             };
         }
     }
@@ -559,8 +559,8 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица:");
-                Console.WriteLine(Matrix1);
-                Console.WriteLine("Определитель матрицы: " + Matrix1.Determinant() + "\n");
+                Console.WriteLine(matrix1);
+                Console.WriteLine("Определитель матрицы: " + matrix1.Determinant() + "\n");
             };
         }
     }
@@ -574,9 +574,9 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица:");
-                Console.WriteLine(Matrix1);
+                Console.WriteLine(matrix1);
                 Console.WriteLine("Обратная матрица:");
-                Console.WriteLine(Matrix1.Inverse());
+                Console.WriteLine(matrix1.Inverse());
             };
         }
     }
@@ -590,9 +590,9 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица:");
-                Console.WriteLine(Matrix1);
+                Console.WriteLine(matrix1);
                 Console.WriteLine("Транспонированная матрица:");
-                Console.WriteLine(Matrix1.Transpose());
+                Console.WriteLine(matrix1.Transpose());
             };
         }
     }
@@ -606,8 +606,8 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица:");
-                Console.WriteLine(Matrix1);
-                Console.WriteLine("След матрицы: " + Matrix1.Trace() + "\n");
+                Console.WriteLine(matrix1);
+                Console.WriteLine("След матрицы: " + matrix1.Trace() + "\n");
             };
         }
     }
@@ -618,15 +618,15 @@ namespace DelegatesAndEvents
         {
             Operation = new Diagonal();
             Next = null;
-            DiagonalizeMatrixDelegate diagonalizeMatrixDelegate = delegate (SquareMatrix matrixForDiagonalize)
+            DiagonalizematrixDelegate diagonalizematrixDelegate = delegate (SquareMatrix matrixForDiagonalize)
             {
-                for (int rowIndex = 0; rowIndex < matrixForDiagonalize.Size; ++rowIndex)
+                for (int rowIndex = 0; rowIndex < matrixForDiagonalize.size; ++rowIndex)
                 {
-                    for (int columnIndex = 0; columnIndex < matrixForDiagonalize.Size; ++columnIndex)
+                    for (int columnIndex = 0; columnIndex < matrixForDiagonalize.size; ++columnIndex)
                     {
                         if (rowIndex != columnIndex)
                         {
-                            matrixForDiagonalize.Matrix[rowIndex, columnIndex] = 0;
+                            matrixForDiagonalize.matrix[rowIndex, columnIndex] = 0;
                         }
                     }
                 }
@@ -636,9 +636,9 @@ namespace DelegatesAndEvents
             TargetFunction = delegate ()
             {
                 Console.WriteLine("\nМатрица:");
-                Console.WriteLine(Matrix1);
+                Console.WriteLine(matrix1);
                 Console.WriteLine("Диагонализированная матрица:");
-                Console.WriteLine(diagonalizeMatrixDelegate(Matrix1));
+                Console.WriteLine(diagonalizematrixDelegate(matrix1));
             };
         }
     }
@@ -663,13 +663,13 @@ namespace DelegatesAndEvents
         static void Main()
         {
             Random rand = new Random();
-            int SizeMatrix = rand.Next(1, 5); 
-            int MinValueElementMatrix = 1; 
-            int MaxValueElementMatrix = 10; 
+            int sizeMatrix = rand.Next(1, 5); 
+            int minValueElementmatrix = 1; 
+            int maxValueElementmatrix = 10; 
 
 
-            SquareMatrix Matrix1 = new SquareMatrix(SizeMatrix, MinValueElementMatrix, MaxValueElementMatrix);
-            SquareMatrix Matrix2 = new SquareMatrix(SizeMatrix, MinValueElementMatrix, MaxValueElementMatrix);
+            SquareMatrix matrix1 = new SquareMatrix(sizeMatrix, minValueElementmatrix, maxValueElementmatrix);
+            SquareMatrix matrix2 = new SquareMatrix(sizeMatrix, minValueElementmatrix, maxValueElementmatrix);
 
             Console.WriteLine("Какаю операцию вы хотите выполнить?\n" +
                               "[1] Сложить две случайные матрицы\n" +
@@ -682,36 +682,25 @@ namespace DelegatesAndEvents
             Console.Write("Ваш выбор (цифра): ");
             string userChoice = Console.ReadLine();
 
-            switch (userChoice)
+            var operations = new Dictionary<string, IOperation>
             {
-                case "1":
-                    ChainApplication chainApplication1 = new ChainApplication();
-                    chainApplication1.Run(new Add(), Matrix1, Matrix2);
-                    break;
-                case "2":
-                    ChainApplication chainApplication2 = new ChainApplication();
-                    chainApplication2.Run(new Multiplication(), Matrix1, Matrix2);
-                    break;
-                case "3":
-                    ChainApplication chainApplication3 = new ChainApplication();
-                    chainApplication3.Run(new Determinant(), Matrix1, Matrix2);
-                    break;
-                case "4":
-                    ChainApplication chainApplication4 = new ChainApplication();
-                    chainApplication4.Run(new Inverse(), Matrix1, Matrix2);
-                    break;
-                case "5":
-                    ChainApplication chainApplication5 = new ChainApplication();
-                    chainApplication5.Run(new Transposition(), Matrix1, Matrix2);
-                    break;
-                case "6":
-                    ChainApplication chainApplication6 = new ChainApplication();
-                    chainApplication6.Run(new Trace(), Matrix1, Matrix2);
-                    break;
-                case "7":
-                    ChainApplication chainApplication7 = new ChainApplication();
-                    chainApplication7.Run(new Diagonal(), Matrix1, Matrix2);
-                    break;
+                { "1", new Add() },
+                { "2", new Multiplication() },
+                { "3", new Determinant() },
+                { "4", new Inverse() },
+                { "5", new Transposition() },
+                { "6", new Trace() },
+                { "7", new Diagonal() },
+            };
+
+            if (operations.TryGetValue(userChoice, out var operation))
+            {
+                ChainApplication chainApplication = new ChainApplication();
+                chainApplication.Run(operation, matrix1, matrix2);
+            }
+            else
+            {
+                Console.WriteLine("Неверный выбор операции");
             }
 
             Console.ReadKey();
